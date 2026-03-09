@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A Letter</title>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+background:radial-gradient(circle at center,#020111,#000000);
+color:white;
+font-family:monospace;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* twinkling stars */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+}
+
+/* letter container */
+
+#letterBox{
+position:relative;
+z-index:2;
+width:80%;
+max-width:700px;
+font-size:20px;
+line-height:1.8;
+white-space:pre-wrap;
+}
+
+/* cursor */
+
+.cursor{
+display:inline-block;
+width:8px;
+height:20px;
+background:white;
+margin-left:4px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0;}
+100%{opacity:1;}
+}
+
+/* shooting star */
+
+.shootingStar{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 6px white,0 0 20px white;
+transform:rotate(45deg);
+animation:shoot 2s linear forwards;
+}
+
+.shootingStar::after{
+content:"";
+position:absolute;
+width:120px;
+height:2px;
+background:linear-gradient(90deg,white,transparent);
+top:50%;
+left:-120px;
+}
+
+@keyframes shoot{
+0%{
+transform:translate(0,0) rotate(45deg);
+opacity:1;
+}
+100%{
+transform:translate(-900px,600px) rotate(45deg);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgmusic" autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="letterBox">
+<span id="text"></span><span class="cursor"></span>
+</div>
+
+<script>
+
+/* background stars */
+
+for(let i=0;i<120;i++){
+
+let star=document.createElement("div")
+
+star.className="star"
+
+star.style.top=Math.random()*100+"vh"
+star.style.left=Math.random()*100+"vw"
+
+star.style.animationDelay=Math.random()*5+"s"
+
+document.body.appendChild(star)
+
+}
+
+/* music resume */
+
+const music=document.getElementById("bgmusic")
+
+const savedTime=localStorage.getItem("musicTime")
+
+if(savedTime){
+music.currentTime=savedTime
+}
+
+setInterval(()=>{
+localStorage.setItem("musicTime",music.currentTime)
+},1000)
+
+/* message */
+
+const message=`Sarkar,
+
+Among billions of stars in this endless universe,
+there are only a few that truly stand out.
+
+Some shine brightly,
+some fade quietly,
+but there are rare ones that leave a mark
+no matter how far away they are.
+
+You are one of those rare stars.
+
+Maybe this little sky I made is nothing
+compared to the real universe above us,
+but it carries one small truth:
+
+Out of every star I could have chosen,
+my eyes still found you.
+
+Always.`
+
+const text=document.getElementById("text")
+
+let i=0
+let speed=40
+
+function type(){
+
+if(i<message.length){
+
+text.innerHTML+=message.charAt(i)
+
+i++
+
+setTimeout(type,speed)
+
+}else{
+
+shootingStar()
+
+}
+
+}
+
+type()
+
+/* final shooting star */
+
+function shootingStar(){
+
+let star=document.createElement("div")
+
+star.className="shootingStar"
+
+star.style.top="20vh"
+star.style.left="90vw"
+
+document.body.appendChild(star)
+
+setTimeout(()=>{
+star.remove()
+},2000)
+
+}
+
+</script>
+
+</body>
+</html>

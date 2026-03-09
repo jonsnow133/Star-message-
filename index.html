@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Night Sky</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="sky">
+
+<canvas id="constellation"></canvas>
+
+<div id="popup"></div>
+
+</div>
+
+<audio id="bgmusic" autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+<script>
+const music = document.getElementById("bgmusic");
+
+/* resume music if returning */
+
+const savedTime = localStorage.getItem("musicTime");
+if(savedTime){
+music.currentTime = savedTime;
+}
+
+/* keep saving current time */
+
+setInterval(()=>{
+localStorage.setItem("musicTime", music.currentTime);
+},1000);
+</script>
+
+</body>
+</html>
