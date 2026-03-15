@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vintage Surprise</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="scene">
+
+<img src="room.jpg" class="background">
+
+<!-- clickable circle -->
+<div class="hintCircle" onclick="openLetter()"></div>
+
+<!-- clickable square -->
+<div class="hintSquare" onclick="secretSpot()"></div>
+
+</div>
+
+<div class="lampFlash" id="lampFlash"></div>
+<div class="dustContainer" id="dustContainer"></div>
+
+</div>
+
+<script src="script.js"></script>
+<audio id="bgMusic" loop>
+<source src="rain.mp3" type="audio/mpeg">
+</audio>
+</body>
+</html>
